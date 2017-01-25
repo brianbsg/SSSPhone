@@ -32,27 +32,19 @@ public final class Editor {
 	public String toString() { return data; }
 	
 	private String handleLine(String line) {
-		if(line.contains("<name>")) {
+		if(line.contains("<NAME>")) {
 			String fix = line.trim(); //cut whitespace
 			fix = fix.substring(6, fix.length() - 7); //cut tags
 			char c = Character.toUpperCase(fix.charAt(0)); //get the first character upper case
 			name = c + fix.substring(1) + ". "; //put together and store 
 			return line; //return original
 		}
-		else if(line.contains("<label>")) {
+		else if(line.contains("<LABEL>")) {
 			String fix = line.trim(); //cut whitespace
 			fix = fix.substring(7, fix.length() - 8); //cut tags
-			return "<label>" + name + fix + "</label>";
-		}
-		else if(line.contains("<position") && line.contains("finish=") && line.contains("start=")) { //if it has these three things
-			String [] strs = line.replace("<position", "") //cut the beginning
-					.replace("/>", "") //cut the end
-					.trim() //cut the whitespace
-					.split("[\\s]+"); //break into 2 around whitespace
-			if(strs[0].startsWith("finish")) //if finish is first, flip
-				return "<position " + strs[1] + ' ' + strs[0] + "/>";
-			else //return in order
-				return "<position " + strs[0] + ' ' + strs[1] + "/>";
+			if(fix.startsWith("\"") && fix.endsWith("\""))
+				fix = fix.substring(1, fix.length() - 1).trim();
+			return "<LABEL>" + name + fix + "</LABEL>";
 		}
 		else //return original
 			return line;
