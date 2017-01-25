@@ -46,7 +46,28 @@ public final class Editor {
 				fix = fix.substring(1, fix.length() - 1).trim();
 			return "<LABEL>" + name + fix + "</LABEL>";
 		}
+		else if(line.contains("<value "))
+			return handleValue(line);
 		else //return original
 			return line;
+	}
+	
+	private String handleValue(String line) {
+		String fix = line.trim();
+		fix = fix.substring(0, fix.length() - 8);
+		StringBuilder sb = new StringBuilder();
+		int i;
+		for(i = 0; i < fix.length(); i++) {
+			char c = fix.charAt(i);
+			sb.append(c);
+			if(c == '>')
+				break;
+		}
+		fix = fix.substring(i + 1);
+		if(fix.startsWith("\"") && fix.endsWith("\""))
+			fix = fix.substring(0, fix.length() - 1);
+		sb.append(fix);
+		sb.append("</value>");
+		return sb.toString();
 	}
 }
