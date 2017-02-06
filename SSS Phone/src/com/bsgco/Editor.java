@@ -65,7 +65,7 @@ public final class Editor {
 		}
 		fix = fix.substring(i + 1);
 		if(fix.startsWith("\"") && fix.endsWith("\""))
-			fix = fix.substring(0, fix.length() - 1);
+			fix = fix.substring(1, fix.length() - 1);
 		sb.append(fix);
 		sb.append("</value>");
 		return sb.toString();
