@@ -24,6 +24,7 @@ public final class Editor {
 		}
 		//set end result
 		data = sb.toString();
+		
 	}
 	
 	/**
